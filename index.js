@@ -3,26 +3,58 @@
 // OUTPUT: the value of the 'name' attribute i.e. Benny
 // REQS: use destructuring and the function should be a single line
 
-export const getName = () => {};
+export const getName = ({ name }) => name;
 
 // INPUT: an object with a nested "address" attribute such as
 //   {name: 'Bob Smith', address: {street: 'Main Street', number: 123, city: 'Anytown', country: 'USA}}
-// OUTPUT: the string 'Bob Smith lives at 123 Main Street, Anytown, USA'
+// OUTPUT: the string
 // REQS: use destructuring and template literals
 
-export const printAddress = () => {};
+export const printAddress = ({ name, address: { number, street, city, country } }) => {
+  return `${name} lives at ${number} ${street}, ${city}, ${country}`;
+};
 
 // REFACTOR CHALLENGE
 // Refactor this function so that all values in the object are destructured
 // as part of the funciton definitions (i.e. there should be no dots in the template literals)
-export const printUserInfo = () => {};
+// export const printUserInfo = (user) => {
+//   return `
+//       Username: ${user.username},
+//       Full Name: ${user.name.first} ${user.name.last},
+//       Favorite Color: ${user.info.favorites.color},
+//       Favorite Food: ${user.info.favorites.food},
+//       Pet Name: ${user.info.pet.name},
+//       Address: ${user.info.address.number} ${user.info.address.street}, ${user.info.address.city}, ${user.info.address.country}
+//       `;
+// };
+export const printUserInfo = ({
+  username,
+  name: { first, last },
+  info: {
+    favorites: { food, color },
+    pet: { type, name },
+    address: { street, number, city, country },
+  },
+}) => {
+  return `
+    Username: ${username},
+    Full Name: ${first} ${last},
+    Favorite Color: ${color},
+    Favorite Food: ${food},
+    Pet Name: ${name},
+    Address: ${number} ${street}, ${city}, ${country}
+    `;
+};
 
 // INPUT: an unknown number of input arguments, all numbers
 // OUTPUT: their sum
 // REQS: use rest parameters
 //  getSum(1, 2, 3) === 6
 //  getSum(1, 2, 3, 4, 5) === 15
-export const getSum = () => {};
+export const getSum = (...rest) => {
+  let sum = 0;
+  rest.forEach((num) => (num += sum));
+};
 
 // INPUT: an unknown number of arguments
 // OUTPUT: an array with the first two arguments destructured and the remaining in a nested array
